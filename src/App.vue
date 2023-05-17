@@ -26,7 +26,7 @@ export default defineComponent({
   },
   methods: {
     calcular (equation: string) {
-      this.result = String(new QuadraticEquation(equation).execute()[0]);
+      this.result = String(new QuadraticEquation(equation).execute());
     }
   }
 });
