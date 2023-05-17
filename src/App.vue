@@ -1,7 +1,10 @@
 <template>
   <div class="columns">
     <SideBar />
-    <FormHeader />
+    <div class="column">
+      <FormHeader @equationString="calcular" />
+      <h1> {{ result }}</h1>
+    </div>
   </div>
 
 
@@ -11,11 +14,21 @@
 import { defineComponent } from 'vue';
 import SideBar from "@/components/SideBar.vue";
 import FormHeader from "@/components/FormHeader.vue";
+import QuadraticEquation from "@/equations/quadraticEquation/QuadraticEquation";
 
 export default defineComponent({
   name: 'App',
   components: {FormHeader, SideBar},
-
+  data () {
+    return {
+      result: "0"
+    }
+  },
+  methods: {
+    calcular (equation: string) {
+      this.result = String(new QuadraticEquation(equation).execute()[0]);
+    }
+  }
 });
 </script>
 
@@ -30,6 +43,10 @@ export default defineComponent({
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-start;
+  }
+
+  .column {
+    width: 100%;
   }
 
 

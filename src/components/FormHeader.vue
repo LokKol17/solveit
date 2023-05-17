@@ -1,14 +1,28 @@
 <template>
   <section class="header">
-    <input type="text" class="header__input" placeholder="Ex: X2 - 4X + 4 = 0">
-    <button class="header__button">Calcular</button>
+    <input type="text" class="header__input" placeholder="Ex: X2 - 4X + 4 = 0" v-model="equation">
+    <button class="header__button" @click="calcular">Calcular</button>
   </section>
 </template>
 
-<script>
-export default {
-  name: "FormHeader"
-};
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
+  name: "FormHeader",
+  emits: ['equationString'],
+  data () {
+    return {
+      equation: ''
+    }
+  },
+  methods: {
+    calcular(): void {
+      this.$emit('equationString', this.equation);
+      this.equation = '';
+    }
+  }
+});
 </script>
 
 <style lang="scss">

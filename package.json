@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "fraction": "^0.2.0",
+    "fraction.js": "^4.2.0",
     "vue": "^3.2.13"
   },
   "devDependencies": {
