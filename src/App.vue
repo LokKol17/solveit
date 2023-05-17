@@ -21,11 +21,15 @@ export default defineComponent({
   components: {FormHeader, SideBar},
   data () {
     return {
-      result: "0"
+      result: ""
     }
   },
   methods: {
     calcular (equation: string) {
+      if (String(new QuadraticEquation(equation).execute()) == '') {
+        this.result = "Sem raiz no conjunto dos números reais";
+        return;
+      }
       this.result = String(new QuadraticEquation(equation).execute());
     }
   }
