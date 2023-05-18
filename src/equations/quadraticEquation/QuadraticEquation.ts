@@ -20,6 +20,7 @@ export default class QuadraticEquation implements EquationInterface{
     }
 
     private prepareQuadraticEquation (equation: string) {
+        //prepara o termo x2 para ser usado
         equation = equation.replace(/\s/g, '');
         equation = equation.replace(/(x2|x²|xe2|xe²|x\^2|x\^²)/gi, 'x2');
         equation = equation.replace(/(-x2)/gi, '-1x2');
@@ -28,12 +29,12 @@ export default class QuadraticEquation implements EquationInterface{
     }
 
     private prepareEquation (equationString: string) {
+        //remove espaços em branco e separa cada termo para um array
         const equation = equationString.replace(/\s/g, '');
-
         const regex = /([-+]?\d*x\d*)|([-+=]?[-+]?\d+)/g;
-
         const terms = equation.match(regex);
 
+        //cria os arrays dos coeficientes
         const a: Array<number> = [];
         const b: Array<number> = [];
         const c: Array<number> = [];
@@ -42,7 +43,9 @@ export default class QuadraticEquation implements EquationInterface{
             throw new Error('Invalid equation');
         }
 
+        //coloca cada termo em seu respectivo array
         terms.forEach(function (term) {
+            //TODO: refatorar isso
             if (term === undefined) {
                 return;
             }
@@ -73,6 +76,7 @@ export default class QuadraticEquation implements EquationInterface{
             c.push(Number(term))
         });
 
+        //soma os itens do array
         const coefficientA = a.reduce((current, next) => current + next, 0);
         const coefficientB = b.reduce((current, next) => current + next, 0);
         const coefficientC = c.reduce((current, next) => current + next, 0);
@@ -81,6 +85,7 @@ export default class QuadraticEquation implements EquationInterface{
     }
 
     private solveEquation(a:number, b:number, c:number) {
+        //TODO: realiza a verificação para checar se a raiz é real
         const discriminant = b * b - 4 * a * c;
 
         if (discriminant > 0) {
@@ -94,6 +99,8 @@ export default class QuadraticEquation implements EquationInterface{
             return []; // Nenhuma raiz real
         }
     }
+
+
 
 }
 
