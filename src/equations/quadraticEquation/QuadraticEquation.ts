@@ -1,6 +1,7 @@
 import EquationInterface from "@/equations/EquationInterface";
 
 import Fraction from "fraction.js";
+import CoefficientsHandler from "../CoefficientsHandler";
 
 export default class QuadraticEquation implements EquationInterface{
 
@@ -11,12 +12,8 @@ export default class QuadraticEquation implements EquationInterface{
 
     public execute(): Array<string | number> | string {
         const formattedEquation = this.prepareQuadraticEquation(this.equation);
-        console.log(formattedEquation);
         const preparedEquation = this.prepareEquation(formattedEquation);
-        console.log(preparedEquation);
-        const solvedEquation = this.solveEquation(preparedEquation[0], preparedEquation[1], preparedEquation[2]);
-        console.log(solvedEquation);
-        return solvedEquation;
+        return this.solveEquation(preparedEquation[0], preparedEquation[1], preparedEquation[2]);
     }
 
     private prepareQuadraticEquation (equation: string) {
@@ -34,54 +31,13 @@ export default class QuadraticEquation implements EquationInterface{
         const regex = /([-+]?\d*x\d*)|([-+=]?[-+]?\d+)/g;
         const terms = equation.match(regex);
 
-        //cria os arrays dos coeficientes
-        const a: Array<number> = [];
-        const b: Array<number> = [];
-        const c: Array<number> = [];
-
         if (terms === null) {
             throw new Error('Invalid equation');
         }
 
-        //coloca cada termo em seu respectivo array
-        terms.forEach(function (term) {
-            //TODO: refatorar isso
-            if (term === undefined) {
-                return;
-            }
-            if (term.includes('x2')) {
-                let newTerm: string|number = term.replace('x2', '')
-                if (isNaN(Number(newTerm)) || Number(newTerm == '')) {
-                    newTerm = 1;
-                }
-                a.push(Number(newTerm));
-                return;
-            }
-            if (term.includes('x')) {
-                let newTerm:string|number = term.replace('x', '')
-                if (isNaN(Number(newTerm)) || Number(newTerm == '')) {
-                    newTerm = 1;
-                }
-                b.push(Number(newTerm));
-                return;
-            }
-            if (term.includes('=')) {
-                term = term.replace('=+', '-');
-                term = term.replace('=-', '+');
-                term = term.replace('=', '-')
+        const coefficientsArray: Array<Array<number>> = CoefficientsHandler.extractCoefficients(terms);
 
-                c.push(Number(term));
-                return;
-            }
-            c.push(Number(term))
-        });
-
-        //soma os itens do array
-        const coefficientA = a.reduce((current, next) => current + next, 0);
-        const coefficientB = b.reduce((current, next) => current + next, 0);
-        const coefficientC = c.reduce((current, next) => current + next, 0);
-
-        return [coefficientA, coefficientB, coefficientC];
+        return CoefficientsHandler.sumCoefficients(coefficientsArray);
     }
 
     private solveEquation(a:number, b:number, c:number) {
@@ -99,7 +55,6 @@ export default class QuadraticEquation implements EquationInterface{
             return []; // Nenhuma raiz real
         }
     }
-
 
 
 }
