@@ -10,20 +10,12 @@ export default class CoefficientsHandler {
             }
 
             if (term.includes('x2')) {
-                let newTerm:string|number = term.replace('x2', '');
-                if (isNaN(Number(newTerm)) || Number(newTerm == '')) {
-                    newTerm = 1;
-                }
-                coefficients[0].push(Number(newTerm));
+                coefficients[0].push(this.processCoefficient(term, 0));
                 return;
             }
 
             if (term.includes('x')) {
-                let newTerm:string|number = term.replace('x', '');
-                if (isNaN(Number(newTerm)) || Number(newTerm == '')) {
-                    newTerm = 1;
-                }
-                coefficients[1].push(Number(newTerm));
+                coefficients[1].push(this.processCoefficient(term, 1));
                 return;
             }
 
@@ -55,4 +47,19 @@ export default class CoefficientsHandler {
         return coefficientsSummed;
     }
 
+    private static processCoefficient(term: string, coefficientIndex: number): number {
+        let newTerm: string | number = '';
+
+        if (coefficientIndex === 0) {
+            newTerm = term.replace('x2', '');
+        } else if (coefficientIndex === 1) {
+            newTerm = term.replace('x', '');
+        }
+
+        if (isNaN(Number(newTerm)) || Number(newTerm === '')) {
+            newTerm = 1;
+        }
+
+        return Number(newTerm);
+    }
 }
