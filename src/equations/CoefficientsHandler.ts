@@ -32,7 +32,7 @@ export default class CoefficientsHandler {
                 coefficients[2].push(Number(term));
                 return;
             }
-        })
+        });
 
         return coefficients;
     }

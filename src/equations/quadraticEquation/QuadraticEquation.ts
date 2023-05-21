@@ -5,7 +5,7 @@ import CoefficientsHandler from "../CoefficientsHandler";
 
 export default class QuadraticEquation implements EquationInterface{
 
-    private equation: string
+    private readonly equation: string;
     constructor(equation: string) {
         this.equation = equation;
     }
