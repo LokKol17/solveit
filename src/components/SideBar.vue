@@ -1,6 +1,6 @@
 <template>
   <section class="barra-lateral">
-    <img class="barra-lateral__logo" src="#" alt="logo">
+    <img class="barra-lateral__logo" src="../../public/SolveitLogoMin.png" alt="logo">
     <div class="barra-lateral__divider"></div>
     <ul class="barra-lateral__list">
       <li class="barra-lateral__list__item">Equação do 2° Grau</li>
@@ -37,7 +37,6 @@ export default defineComponent({
     &__logo {
       width: $defaultWidth;
       height: 300px;
-      background: $mint;
     }
 
     &__divider {
