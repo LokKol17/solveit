@@ -50,7 +50,7 @@ export default class QuadraticEquation implements EquationInterface{
             return [new Fraction(x1).toFraction(), new Fraction(x2).toFraction()];
         } else if (discriminant === 0) {
             const x = -b / (2 * a);
-            return [new Fraction(x).toFraction()];
+            return [String(x)];
         } else {
             return []; // Nenhuma raiz real
         }
